@@ -1,24 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import Header from './components/Header';
+import CompetitionsPage from './pages/CompetitionsPage';
+import SportsmenPage from './pages/SportsmenPage';
+import RegistrationPage from './pages/RegistrationPage';
+import CompetitionForm from './pages/CompetitionForm';
+import SportsmanForm from './pages/SportsmanForm';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div>
+        <Header />
+        <div className="container">
+          <Routes>
+            <Route path="/" element={<Navigate to="/competitions" />} />
+            <Route path="/competitions" element={<CompetitionsPage />} />
+            <Route path="/competitions/new" element={<CompetitionForm />} />
+            <Route path="/competitions/edit/:id" element={<CompetitionForm />} />
+            <Route path="/sportsmen" element={<SportsmenPage />} />
+            <Route path="/sportsmen/new" element={<SportsmanForm />} />
+            <Route path="/sportsmen/edit/:id" element={<SportsmanForm />} />
+            <Route path="/registration" element={<RegistrationPage />} />
+          </Routes>
+        </div>
+      </div>
   );
 }
 
