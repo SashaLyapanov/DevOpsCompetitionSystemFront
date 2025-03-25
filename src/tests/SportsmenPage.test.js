@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import {render, screen, fireEvent, waitFor, cleanup} from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import SportsmenPage from '../pages/SportsmenPage'; // Adjust the import path if necessary
 import { fetchSportsmen, deleteSportsman } from '../api';
@@ -47,6 +47,7 @@ describe('SportsmenPage', () => {
 
     afterEach(() => {
         jest.clearAllMocks();
+        cleanup();
     });
 
     test('should render sportsmen list correctly', async () => {
@@ -98,7 +99,11 @@ describe('SportsmenPage', () => {
 
         expect(mockNavigate).toHaveBeenCalledWith('/sportsmen/new'); // Assert that the navigation occurred with the correct path
     });
-   /* test('should delete a sportsman when trash icon is clicked', async () => {
+    test('should delete a sportsman when trash icon is clicked', async () => {
+        const mockNavigate = jest.fn(); // Mock function for useNavigate
+        // Mock `useNavigate` to return the mock function
+        require('react-router-dom').useNavigate.mockReturnValue(mockNavigate);
+        jest.spyOn(window, "confirm").mockImplementation(() => true);
         render(
             <MemoryRouter>
                 <SportsmenPage />
@@ -111,7 +116,8 @@ describe('SportsmenPage', () => {
         });
 
         // Select all `svg` elements (React Icons are SVGs)
-        const deleteIcons = document.querySelectorAll('svg');
+        const deleteIcons = screen.getAllByRole('button', { name: /delete/i });
+
         expect(deleteIcons.length).toBeGreaterThan(0);
 
         // Click the first delete icon
@@ -123,27 +129,5 @@ describe('SportsmenPage', () => {
         });
     });
 
-    test('should show confirmation before deleting sportsman', async () => {
-        window.confirm = jest.fn(() => true); // Mock confirmation dialog
 
-        render(
-            <MemoryRouter>
-                <SportsmenPage />
-            </MemoryRouter>
-        );
-
-        // Wait for data to load
-        await waitFor(() => {
-            expect(fetchSportsmen).toHaveBeenCalledTimes(1);
-        });
-
-        // Select all `svg` elements
-        const deleteIcons = document.querySelectorAll('svg');
-        expect(deleteIcons.length).toBeGreaterThan(0);
-
-        // Click delete icon
-        fireEvent.click(deleteIcons[0]);
-
-        expect(window.confirm).toHaveBeenCalledWith('Вы уверены, что хотите удалить спортсмена?');
-    });*/
 });

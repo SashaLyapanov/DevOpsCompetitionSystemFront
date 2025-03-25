@@ -64,6 +64,8 @@ const SportsmenPage = () => {
                                 onClick={() => navigate(`/sportsmen/edit/${sportsman.id}`)}
                             />
                             <FaTrash
+                                role="button"
+                                aria-label="delete"
                                 style={{ cursor: 'pointer' }}
                                 onClick={() => handleDelete(sportsman.id)}
                             />
