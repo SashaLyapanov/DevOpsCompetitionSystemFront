@@ -54,24 +54,24 @@ const CompetitionForm = () => {
             <h2>{id ? 'Редактировать соревнование' : 'Создать соревнование'}</h2>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label>Название:</label>
-                    <input type="text" name="name" value={competition.name} onChange={handleChange} required />
+                    <label htmlFor="name">Название:</label>
+                    <input id="name" type="text" name="name" value={competition.name} onChange={handleChange} required />
                 </div>
                 <div>
-                    <label>Описание:</label>
-                    <textarea name="description" value={competition.description} onChange={handleChange} required />
+                    <label htmlFor="description">Описание:</label>
+                    <textarea id="description" name="description" value={competition.description} onChange={handleChange} required />
                 </div>
                 <div>
-                    <label>Дата начала:</label>
-                    <input type="date" name="startDate" value={competition.startDate} onChange={handleChange} required />
+                    <label htmlFor="startDate">Дата начала:</label>
+                    <input id="startDate" type="date" name="startDate" value={competition.startDate} onChange={handleChange} required />
                 </div>
                 <div>
-                    <label>Дата окончания:</label>
-                    <input type="date" name="endDate" value={competition.endDate} onChange={handleChange} required />
+                    <label htmlFor="endDate">Дата окончания:</label>
+                    <input id="endDate" type="date" name="endDate" value={competition.endDate} onChange={handleChange} required />
                 </div>
                 <div>
-                    <label>Количество участников:</label>
-                    <input type="number" name="participantQuantity" value={competition.participantQuantity} onChange={handleChange} required />
+                    <label htmlFor="participantQuantity">Количество участников:</label>
+                    <input id="participantQuantity" type="number" name="participantQuantity" value={competition.participantQuantity} onChange={handleChange} required />
                 </div>
                 <button type="submit">{id ? 'Сохранить изменения' : 'Создать'}</button>
             </form>

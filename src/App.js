@@ -6,9 +6,10 @@ import SportsmenPage from './pages/SportsmenPage';
 import RegistrationPage from './pages/RegistrationPage';
 import CompetitionForm from './pages/CompetitionForm';
 import SportsmanForm from './pages/SportsmanForm';
-
+import { BrowserRouter } from 'react-router-dom';
 function App() {
   return (
+      <BrowserRouter>
       <div>
         <Header />
         <div className="container">
@@ -24,6 +25,7 @@ function App() {
           </Routes>
         </div>
       </div>
+      </BrowserRouter>
   );
 }
 
