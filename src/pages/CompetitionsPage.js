@@ -63,7 +63,10 @@ const CompetitionsPage = () => {
                                 style={{ cursor: 'pointer', marginRight: '10px' }}
                                 onClick={() => navigate(`/competitions/edit/${comp.id}`)}
                             />
+
                             <FaTrash
+                                role="button"
+                                aria-label="delete"
                                 style={{ cursor: 'pointer' }}
                                 onClick={() => handleDelete(comp.id)}
                             />

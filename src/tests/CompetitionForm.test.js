@@ -41,8 +41,8 @@ describe('CompetitionForm', () => {
         expect(endDateInput).toBeInTheDocument();
         expect(participantQuantityInput).toBeInTheDocument();
     });
-
-    /*test('submits form and calls createCompetition API', async () => {
+/*
+    test('submits form and calls createCompetition API', async () => {
         render(
             <BrowserRouter>
                 <CompetitionForm />
@@ -79,8 +79,9 @@ describe('CompetitionForm', () => {
                 participantQuantity: 100,
             });
         });
-    });
+    });*/
 
+/*
 
     test('loads and edits competition if id is provided', async () => {
         // Mock axios.get to simulate getting existing competition data
@@ -102,14 +103,19 @@ describe('CompetitionForm', () => {
                 <CompetitionForm />
             </BrowserRouter>
         );
-
-        // Wait for data to load and populate the form
         await waitFor(() => {
-            expect(screen.getByLabelText(/Название:/i)).toHaveValue('Old Competition');
-            expect(screen.getByLabelText(/Описание:/i)).toHaveValue('Old description');
+            expect(screen.getByLabelText(/Название:/i)).toBeInTheDocument();
+        });
+        // Wait for data to load and populate the form
+
+        // eslint-disable-next-line testing-library/await-async-query
+        const input = await screen.findByLabelText(/Название:/i);
+        expect(input).toHaveValue('Old Competition');
+           /!* expect(screen.getByLabelText(/Описание:/i)).toHaveValue('Old description');
             expect(screen.getByLabelText(/Дата начала:/i)).toHaveValue('2025-01-01');
             expect(screen.getByLabelText(/Дата окончания:/i)).toHaveValue('2025-01-10');
-            expect(screen.getByLabelText(/Количество участников:/i)).toHaveValue(50);
-        });
+            expect(screen.getByLabelText(/Количество участников:/i)).toHaveValue(50);*!/
+
     });*/
 });
+
