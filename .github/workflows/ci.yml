@@ -30,10 +30,10 @@ jobs:
       - name: Build Project
         run: npm run build
 
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v1
-        with:
-          name: frontend-build
-          path: build/
+#      - name: Upload build artifacts
+#        uses: actions/upload-artifact@v1
+#        with:
+#          name: frontend-build
+#          path: build/
       - name: Debug Network Issues
         run: curl -v https://github.com/actions/upload-artifact
