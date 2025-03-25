@@ -41,8 +41,8 @@ const RegistrationPage = () => {
             <h2>Регистрация спортсмена на соревнование</h2>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label>Соревнование:</label>
-                    <select value={selectedCompetition} onChange={(e) => setSelectedCompetition(e.target.value)}>
+                    <label htmlFor={"compition"} >Соревнование:</label>
+                    <select id="compition" value={selectedCompetition} onChange={(e) => setSelectedCompetition(e.target.value)}>
                         <option value="">Выберите соревнование</option>
                         {competitions.map(comp => (
                             <option key={comp.id} value={comp.id}>{comp.name}</option>
@@ -50,8 +50,8 @@ const RegistrationPage = () => {
                     </select>
                 </div>
                 <div>
-                    <label>Спортсмен:</label>
-                    <select value={selectedSportsman} onChange={(e) => setSelectedSportsman(e.target.value)}>
+                    <label htmlFor={"sportsman"}>Спортсмен:</label>
+                    <select  id="sportsman" value={selectedSportsman} onChange={(e) => setSelectedSportsman(e.target.value)}>
                         <option value="">Выберите спортсмена</option>
                         {sportsmen.map(sport => (
                             <option key={sport.id} value={sport.id}>{sport.firstName} {sport.surname}</option>
