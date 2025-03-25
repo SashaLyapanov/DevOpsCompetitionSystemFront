@@ -35,3 +35,5 @@ jobs:
         with:
           name: frontend-build
           path: build/
+      - name: Debug Network Issues
+        run: curl -v https://github.com/actions/upload-artifact
