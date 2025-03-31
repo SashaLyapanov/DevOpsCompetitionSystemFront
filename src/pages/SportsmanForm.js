@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { createSportsman, updateSportsman } from '../api';
+import React, {useEffect, useState} from 'react';
+import {useNavigate, useParams} from 'react-router-dom';
+import {createSportsman, updateSportsman} from '../api';
 import axios from 'axios';
 
 const SportsmanForm = () => {
@@ -13,7 +13,7 @@ const SportsmanForm = () => {
         phone: ''
     });
     const navigate = useNavigate();
-    const { id } = useParams();
+    const {id} = useParams();
 
     useEffect(() => {
         if (id) {
@@ -34,17 +34,16 @@ const SportsmanForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (id) {
-            try {
-                if (id) {
-                    await updateSportsman(sportsman);
-                } else {
-                    await createSportsman(sportsman);
-                }
-                navigate('/sportsmen'); // Ensure navigation happens only after the API call
-            } catch (error) {
-                console.error("Error submitting sportsman data", error);
-            }}
+        try {
+            if (id) {
+                await updateSportsman(sportsman);
+            } else {
+                await createSportsman(sportsman);
+            }
+            navigate('/sportsmen'); // Ensure navigation happens only after the API call
+        } catch (error) {
+            console.error("Error submitting sportsman data", error);
+        }
     };
 
     return (
@@ -53,27 +52,32 @@ const SportsmanForm = () => {
             <form onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor={"surname"}>Фамилия:</label>
-                    <input id="surname" type="text" name="surname" value={sportsman.surname} onChange={handleChange} required />
+                    <input id="surname" type="text" name="surname" value={sportsman.surname} onChange={handleChange}
+                           required/>
                 </div>
                 <div>
                     <label htmlFor={"firstName"}>Имя:</label>
-                    <input id="firstName" type="text" name="firstName" value={sportsman.firstName} onChange={handleChange} required />
+                    <input id="firstName" type="text" name="firstName" value={sportsman.firstName}
+                           onChange={handleChange} required/>
                 </div>
                 <div>
                     <label htmlFor={"patronymic"}>Отчество:</label>
-                    <input id="patronymic" type="text" name="patronymic" value={sportsman.patronymic} onChange={handleChange} required />
+                    <input id="patronymic" type="text" name="patronymic" value={sportsman.patronymic}
+                           onChange={handleChange} required/>
                 </div>
                 <div>
                     <label htmlFor={"age"}>Возраст:</label>
-                    <input id="age" type="number" name="age" value={sportsman.age} onChange={handleChange} required />
+                    <input id="age" type="number" name="age" value={sportsman.age} onChange={handleChange} required/>
                 </div>
                 <div>
                     <label htmlFor={"email"}>Email:</label>
-                    <input id="email" type="email" name="email" value={sportsman.email} onChange={handleChange} required />
+                    <input id="email" type="email" name="email" value={sportsman.email} onChange={handleChange}
+                           required/>
                 </div>
                 <div>
                     <label htmlFor={"phone"}>Телефон:</label>
-                    <input id="phone" type="text" name="phone" value={sportsman.phone} onChange={handleChange} required />
+                    <input id="phone" type="text" name="phone" value={sportsman.phone} onChange={handleChange}
+                           required/>
                 </div>
                 <button type="submit">{id ? 'Сохранить изменения' : 'Создать'}</button>
             </form>
