@@ -9,7 +9,28 @@ on:
       - master
 
 jobs:
-  build-and-test:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install # or yarn install
+
+      - name: Build Project
+        run: npm run build
+
+      - name: Debug Network Issues
+        run: curl -v https://github.com/actions/upload-artifact
+
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -27,13 +48,5 @@ jobs:
       - name: Run tests
         run: npm test -- --watchAll=false # Jest runs in CI mode
 
-      - name: Build Project
-        run: npm run build
-
-#      - name: Upload build artifacts
-#        uses: actions/upload-artifact@v1
-#        with:
-#          name: frontend-build
-#          path: build/
       - name: Debug Network Issues
         run: curl -v https://github.com/actions/upload-artifact
