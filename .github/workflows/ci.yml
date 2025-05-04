@@ -50,3 +50,16 @@ jobs:
 
       - name: Debug Network Issues
         run: curl -v https://github.com/actions/upload-artifact
+
+  publish_images:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: docker build images
+        run: docker build . -t sashalyapanov/frontend-dev-ops:latest
+      - name: docker push images
+        run: |
+          docker login -u sashalyapanov -p ${{ secrets.DOCKER_HUB_TOKEN }}
+          docker push sashalyapanov/frontend-dev-ops:latest
