@@ -22,5 +22,8 @@ kind: Service
 metadata:
   name: frontend-dev-ops
 spec:
+  ports:
+    - port: 3000
+      targetPort: 3000
   selector:
     app: frontend-dev-ops
