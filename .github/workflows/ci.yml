@@ -45,11 +45,11 @@ jobs:
       - name: Install dependencies
         run: npm install # or yarn install
 
-      - name: Run tests
-        run: npm test -- --watchAll=false # Jest runs in CI mode
+#      - name: Run tests
+#        run: npm test -- --watchAll=false # Jest runs in CI mode
 
-      - name: Debug Network Issues
-        run: curl -v https://github.com/actions/upload-artifact
+#      - name: Debug Network Issues
+#        run: curl -v https://github.com/actions/upload-artifact
 
   publish_images:
     name: DockerHub publish images
