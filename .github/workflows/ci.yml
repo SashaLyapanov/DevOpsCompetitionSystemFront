@@ -52,14 +52,53 @@ jobs:
         run: curl -v https://github.com/actions/upload-artifact
 
   publish_images:
+    name: DockerHub publish images
     runs-on: ubuntu-latest
     needs: test
+    env:
+      DOCKER_USER: sashalyapanov
     steps:
-      - name: checkout
-        uses: actions/checkout@v4
-      - name: docker build images
-        run: docker build . -t sashalyapanov/frontend-dev-ops:latest
-      - name: docker push images
+      - uses: actions/checkout@v4
+      - id: vars
+        run: echo "TAG=${GITHUB_SHA::8}" >> $GITHUB_OUTPUT
+
+      - name: Build image
         run: |
-          docker login -u sashalyapanov -p ${{ secrets.DOCKER_HUB_TOKEN }}
-          docker push sashalyapanov/frontend-dev-ops:latest
+          docker build . \
+            -t $DOCKER_USER/frontend-dev-ops:latest \
+            -t $DOCKER_USER/frontend-dev-ops:${{ steps.vars.outputs.TAG }}
+
+      - name: Push to DockerHub
+        run: |
+          docker login -u $DOCKER_USER -p ${{ secrets.DOCKER_HUB_TOKEN }}
+          docker push $DOCKER_USER/frontend-dev-ops:latest
+          docker push $DOCKER_USER/frontend-dev-ops:${{ steps.vars.outputs.TAG }}
+
+  deploy:
+    name: Deploy to K8s
+    runs-on: [ self-hosted, k8s ]
+    needs: publish_images
+    env:
+      DOCKER_USER: sashalyapanov
+      SHA: ${{ github.sha }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up kubectl
+        uses: azure/setup-kubectl@v3
+        with: { version: v1.30.0 }
+
+      - name: Configure kubeconfig
+        run: |
+          mkdir -p $HOME/.kube
+          echo "${{ secrets.KUBE_CONFIG }}" > $HOME/.kube/config
+
+      - name: Substitute TAG and apply manifests
+        run: |
+          export TAG=${GITHUB_SHA::8}
+          echo "Using TAG=$TAG"
+          envsubst < k8s-deployment/deployment-frontend.yaml | kubectl apply -f -
+
+      - name: Wait for rollout
+        run: |
+          kubectl rollout status deployment/frontend-dev-ops

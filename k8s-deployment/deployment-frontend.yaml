@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-dev-ops
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend-dev-ops
+  template:
+    metadata:
+      labels:
+        app: frontend-dev-ops
+    spec:
+      containers:
+        - name: frontend-dev-ops
+          image: sashalyapanov/frontend-dev-ops:${TAG}
+          imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-dev-ops
+spec:
+  selector:
+    app: frontend-dev-ops
