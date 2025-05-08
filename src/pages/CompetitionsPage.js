@@ -37,7 +37,7 @@ const CompetitionsPage = () => {
 
     return (
         <div>
-            <h2>Соревнования</h2>
+            <h2>Соревнования!</h2>
             <button onClick={() => navigate('/competitions/new')}>Создать соревнование</button>
             <table border="1" cellPadding="5" cellSpacing="0" style={{ marginTop: '20px', width: '100%' }}>
                 <thead>
